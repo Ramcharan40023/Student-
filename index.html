@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MITS Project – Student Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #1f2937;
+    }
+
+    input, textarea, select {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: #ef4444;
+    }
+
+    .delete-btn:hover {
+      background-color: #dc2626;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MITS Project – Student Management System</h1>
+
+  <!-- 1. Student Enrollment -->
+  <div class="section">
+    <h2>Student Enrollment</h2>
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="text" id="roll" placeholder="Roll Number">
+    <input type="text" id="class" placeholder="Class">
+    <button onclick="addStudent()">Enroll Student</button>
+  </div>
+
+  <!-- 2. Student Table with Attendance and Grades -->
+  <div class="section">
+    <h2>Student List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll</th>
+          <th>Class</th>
+          <th>Attendance</th>
+          <th>Grade</th>
+          <th>Message</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable">
+        <!-- Student rows go here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function addStudent() {
+      const name = document.getElementById("name").value;
+      const roll = document.getElementById("roll").value;
+      const studentClass = document.getElementById("class").value;
+
+      if (name === "" || roll === "" || studentClass === "") {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const table = document.getElementById("studentTable");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${roll}</td>
+        <td>${studentClass}</td>
+        <td>
+          <select>
+            <option>Present</option>
+            <option>Absent</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" placeholder="Enter Grade">
+        </td>
+        <td>
+          <textarea placeholder="Message..." rows="2" cols="20"></textarea>
+        </td>
+        <td>
+          <button class="delete-btn" onclick="deleteRow(this)">Delete</button>
+        </td>
+      `;
+
+      table.appendChild(row);
+
+      // Clear input fields
+      document.getElementById("name").value = "";
+      document.getElementById("roll").value = "";
+      document.getElementById("class").value = "";
+    }
+
+    function deleteRow(button) {
+      const row = button.parentElement.parentElement;
+      row.remove();
+    }
+  </script>
+
+</body>
+</html>
